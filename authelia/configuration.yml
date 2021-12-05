@@ -1,0 +1,72 @@
+---
+###############################################################
+#                   Authelia configuration                    #
+###############################################################
+
+jwt_secret: a_very_important_secret
+default_redirection_url: https://public.example.com
+
+server:
+  host: 0.0.0.0
+  port: 9091
+
+log:
+  level: debug
+
+totp:
+  issuer: authelia.com
+
+authentication_backend:
+  disable_reset_password: false
+  refresh_interval: 5m
+  ldap:
+    implementation: custom
+    url: ldap://192.168.101.54
+    start_tls: false
+    tls:
+      skip_verify: false
+      minimum_version: TLS1.2
+    base_dn: dc=example,dc=local
+    username_attribute: uid
+    additional_users_dn: cn=users,cn=accounts
+    users_filter: (&({username_attribute}={input})(objectClass=person))
+    additional_groups_dn: cn=groups,cn=accounts
+    groups_filter: (&(member=uid={input},cn=users,cn=accounts,dc=example,dc=local)(objectclass=groupofnames))
+    group_name_attribute: cn
+    mail_attribute: mail
+    display_name_attribute: givenName
+    user: uid=admin,cn=users,cn=accounts,dc=mabnadp,dc=local
+    password: YOURPASSWORD
+
+
+access_control:
+  default_policy: deny
+  rules:
+    - domain: public.example.com
+      policy: bypass
+    - domain: traefik.example.com
+      policy: one_factor
+    - domain: secure.example.com
+      policy: two_factor
+
+session:
+  name: authelia_session
+  secret: unsecure_session_secret
+  expiration: 3600  # 1 hour
+  inactivity: 300  # 5 minutes
+  domain: example.com  # Should match whatever your root protected domain is
+
+regulation:
+  max_retries: 3
+  find_time: 120
+  ban_time: 300
+
+storage:
+  encryption_key: you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  filesystem:
+    filename: /config/notification.txt
+...
