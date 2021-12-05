@@ -88,12 +88,10 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.public.rule=Host(`public.example.com`)'
       - 'traefik.http.routers.public.entrypoints=https'
-            - 'traefik.http.routers.public.tls=true'
+      - 'traefik.http.routers.public.tls=true'
       - 'traefik.http.routers.public.tls.options=default'
       - 'traefik.http.routers.public.middlewares=authelia@docker'
     expose:
       - 80
     restart: unless-stopped
 ...
-
-
