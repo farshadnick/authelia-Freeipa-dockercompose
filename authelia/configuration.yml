@@ -26,7 +26,7 @@ authentication_backend:
     tls:
       skip_verify: false
       minimum_version: TLS1.2
-    base_dn: dc=mabnadp,dc=local
+    base_dn: dc=test,dc=local
     username_attribute: uid
     additional_users_dn: cn=users,cn=accounts
     users_filter: (&({username_attribute}={input})(objectClass=person))
@@ -35,8 +35,8 @@ authentication_backend:
     group_name_attribute: cn
     mail_attribute: mail
     display_name_attribute: givenName
-    user: uid=admin,cn=users,cn=accounts,dc=mabnadp,dc=local
-    password: UltraS3cure
+    user: uid=admin,cn=users,cn=accounts,dc=test,dc=local
+    password: PASSS
 
 
 access_control:
