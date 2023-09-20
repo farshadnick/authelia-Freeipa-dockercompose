@@ -1,0 +1,15 @@
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  [entryPoints.https]
+  address = ":443"
+
+
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+
+
+
+
+[providers.file]
+  filename = "/etc/traefik/config.yaml"

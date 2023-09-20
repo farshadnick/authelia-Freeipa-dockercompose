@@ -4,7 +4,7 @@
 ###############################################################
 
 jwt_secret: a_very_important_secret
-default_redirection_url: https://public.example.com
+default_redirection_url: https://public.packops.local
 
 server:
   host: 0.0.0.0
@@ -42,19 +42,19 @@ authentication_backend:
 access_control:
   default_policy: deny
   rules:
-    - domain: public.example.com
+    - domain: public.packops.local
       policy: bypass
-    - domain: traefik.example.com
+    - domain: traefik.packops.local
       policy: one_factor
-    - domain: secure.example.com
-      policy: two_factor
-
+    - domain: prometheus.packops.local
+      policy: one_factor
+        # two_factor
 session:
   name: authelia_session
   secret: unsecure_session_secret
   expiration: 3600  # 1 hour
   inactivity: 300  # 5 minutes
-  domain: example.com  # Should match whatever your root protected domain is
+  domain: packops.local  # Should match whatever your root protected domain is
 
 regulation:
   max_retries: 3

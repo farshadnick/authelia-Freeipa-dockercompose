@@ -15,11 +15,11 @@ services:
       - net
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.authelia.rule=Host(`authelia.example.com`)'
+      - 'traefik.http.routers.authelia.rule=Host(`authelia.packops.local`)'
       - 'traefik.http.routers.authelia.entrypoints=https'
       - 'traefik.http.routers.authelia.tls=true'
       - 'traefik.http.routers.authelia.tls.options=default'
-      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://authelia.example.com'  # yamllint disable-line rule:line-length
+      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://authelia.packops.local'  # yamllint disable-line rule:line-length
       - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
       - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'  # yamllint disable-line rule:line-length
     expose:
@@ -28,7 +28,7 @@ services:
     healthcheck:
       disable: true
     environment:
-      - TZ=Australia/Melbourne
+      - TZ=Asia/Tehran
 
   traefik:
     image: traefik:2.4
@@ -40,7 +40,7 @@ services:
       - net
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.api.rule=Host(`traefik.example.com`)'
+      - 'traefik.http.routers.api.rule=Host(`traefik.packops.local`)'
       - 'traefik.http.routers.api.entrypoints=https'
       - 'traefik.http.routers.api.service=api@internal'
       - 'traefik.http.routers.api.tls=true'
@@ -70,7 +70,7 @@ services:
       - net
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.secure.rule=Host(`secure.example.com`)'
+      - 'traefik.http.routers.secure.rule=Host(`secure.packops.local`)'
       - 'traefik.http.routers.secure.entrypoints=https'
       - 'traefik.http.routers.secure.tls=true'
       - 'traefik.http.routers.secure.tls.options=default'
@@ -86,7 +86,7 @@ services:
       - net
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.public.rule=Host(`public.example.com`)'
+      - 'traefik.http.routers.public.rule=Host(`public.packops.local`)'
       - 'traefik.http.routers.public.entrypoints=https'
       - 'traefik.http.routers.public.tls=true'
       - 'traefik.http.routers.public.tls.options=default'
